@@ -28,6 +28,6 @@ jobs:
           env:
             AWS_S3_BUCKET: ${{ secrets.DEV_S3_LINK }}
             AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
-            AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.SCRECT_KEY }}
             AWS_REGION: us-east-1
             SOURCE_DIR: dist
