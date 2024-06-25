@@ -1,29 +1,35 @@
 name: cicddev
+
 on:
   push:
-    branches: dev
+    branches:
+      - dev
+
 jobs:
-  runs-on: ubuntu-20.04
+    runs-on: ubuntu-20.04
+
     steps:
-    - name: checkout branch
+    - name: Checkout branch
       uses: actions/checkout@v4
 
-    - name: setup node
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
 
-    - name: node modules install
+    - name: Install Node modules
       run: npm install
 
-    - name: to build the code
+    - name: Build the code
       run: npm run build
 
-    - name: upload to s3 bucket
+    - name: Upload to S3 bucket
       uses: jakejarvis/s3-sync-action@master
+      with:
+        args:
       env:
-        AWS_S3_BUCKET: '${{ secrets.DEV_S3_LINK}}'
-        AWS_ACCESS_KEY_ID: '${{ secrets.ACCESS_KEY_ID }}'
-        AWS_SECRET_ACCESS_KEY: '${{ secrets.SCRECT_KEY }}'
+        AWS_S3_BUCKET: ${{ secrets.DEV_S3_LINK }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.SECRET_KEY }}
         AWS_REGION: us-east-1
         SOURCE_DIR: dist
